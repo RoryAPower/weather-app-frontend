@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Base from "@/layouts/Base.vue";
+import { useUserStore } from "@/stores/useUserStore";
 
 const routes = [
   {
@@ -29,6 +30,13 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach(async (to) => {
+  const store = useUserStore();
+  if (!store.isUserLoggedIn && to.name !== "Login") {
+    return { name: "Login" };
+  }
 });
 
 export default router;

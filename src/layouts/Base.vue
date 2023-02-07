@@ -64,7 +64,11 @@ const onLogout = async () => {
   try {
     const response = await logout();
 
-    if (response) await router.push({ path: "login" });
+    if (response) {
+      store.isUserLoggedIn = false;
+      store.user = null;
+      await router.push({ path: "login" });
+    }
   } catch (error) {
     console.log(error);
   }

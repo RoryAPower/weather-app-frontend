@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/useUserStore";
+import router from "@/router";
 
 const http = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -15,8 +16,12 @@ http.interceptors.response.use(
   },
   async (error) => {
     if (error.response?.status === 401) {
-      const router = useRouter();
-      await router.push({ path: "login" });
+      const store = useUserStore();
+      store.isUserLoggedIn = false;
+      store.user = null;
+
+      if (router.currentRoute.value.name !== "Login")
+        await router.push({ path: "login" });
       return;
     }
 

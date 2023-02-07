@@ -2,10 +2,10 @@ import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { User } from "@/interfaces/user";
 import { getUserDetails } from "@/services/api/user";
-import { City } from "@/interfaces/weather";
 
 export const useUserStore = defineStore("user", () => {
-  const user = ref<User>();
+  const isUserLoggedIn = ref(false);
+  const user = ref<User | null>();
   const cities = computed(() => user.value?.cities || []);
   async function addUserDetailsToStore() {
     try {
@@ -19,5 +19,5 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
-  return { user, cities, addUserDetailsToStore };
+  return { user, cities, isUserLoggedIn, addUserDetailsToStore };
 });

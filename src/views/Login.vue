@@ -38,6 +38,7 @@
 import { reactive } from "vue";
 import { login } from "@/services/api/auth";
 import router from "@/router";
+import { useUserStore } from "@/stores/useUserStore";
 
 const credentials = reactive({ email: "", password: "" });
 const onSubmit = async () => {
@@ -47,7 +48,11 @@ const onSubmit = async () => {
       password: credentials.password,
     });
 
-    if (response) await router.push({ path: "/home" });
+    if (response) {
+      const store = useUserStore();
+      store.isUserLoggedIn = true;
+      await router.push({ path: "/home" });
+    }
   } catch (error) {
     console.log(error);
   }
