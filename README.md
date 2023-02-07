@@ -6,6 +6,9 @@
 # yarn
 yarn
 
+#env
+run `cp .env.example .env`
+
 ```
 
 ### Compile Project
