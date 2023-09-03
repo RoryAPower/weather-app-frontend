@@ -1,33 +1,26 @@
 export interface City {
-  id?: string;
-  name: string;
-  lat: number;
-  long: number;
-  country?: string;
+  id?: string
+  name: string
+  lat: number
+  long: number
+  country?: string
+  state?: string
 }
 
 export interface Weather {
-  city: {
-    name: string;
-    sunrise: number;
-    sunset: number;
-  };
-  list: WeatherObject[];
+  city: string
+  weather: WeatherObject[]
 }
 
 export interface WeatherObject {
-  main: {
-    temp: number;
-    feels_like: number;
-    temp_min: number;
-    temp_max: number;
-    humidity: number;
-  };
-  weather: mainObject[];
+  temp: number
+  feelsLike: number
+  tempMin: number
+  tempMax: number
+  humidity: number
+  icon: string
 }
 
-export interface mainObject {
-  main: string;
-  description: string;
-  icon: string;
+export interface WeatherResponse {
+  data: Weather
 }

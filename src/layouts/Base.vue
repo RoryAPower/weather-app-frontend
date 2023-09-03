@@ -1,14 +1,11 @@
 <template>
   <v-app-bar color="primary">
-    <v-app-bar-nav-icon
-      variant="text"
-      @click.stop="drawer = !drawer"
-    ></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
     <v-spacer />
     <v-btn variant="outlined" class="mx-2"
       ><router-link
         :to="{
-          name: 'Home',
+          name: 'Home'
         }"
         class="text-decoration-none text-white"
         >Home</router-link
@@ -25,7 +22,7 @@
               :to="{
                 name: 'Weather',
                 params: { id: city.id },
-                query: { lat: city.lat, long: city.long },
+                query: { lat: city.lat, long: city.long }
               }"
               class="w-100 h-50 d-flex justify-center align-center text-decoration-none text-white bg-grey-darken-2 pa-4 my-2"
               >{{ city.name }}</router-link
@@ -43,36 +40,19 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
-import { logout } from "@/services/api/auth";
-import { useUserStore } from "@/stores/useUserStore";
-import { useRouter } from "vue-router";
+import { onMounted, ref } from 'vue'
+import { useUserStore } from '@/stores/useUserStore'
+import { useAuth } from '@/composables/useAuth'
 
-const drawer = ref(false);
-const ready = ref(false);
-const store = useUserStore();
-const router = useRouter();
-
-store.addUserDetailsToStore();
+const drawer = ref(false)
+const ready = ref(false)
+const store = useUserStore()
+const { onLogout } = useAuth()
 
 onMounted(async () => {
-  await store.addUserDetailsToStore();
-  ready.value = true;
-});
-
-const onLogout = async () => {
-  try {
-    const response = await logout();
-
-    if (response) {
-      store.isUserLoggedIn = false;
-      store.user = null;
-      await router.push({ path: "login" });
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
+  await store.addUserDetailsToStore()
+  ready.value = true
+})
 </script>
 
 <style scoped></style>

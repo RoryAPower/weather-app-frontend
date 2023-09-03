@@ -1,10 +1,7 @@
 <template>
   <v-container fluid class="fill-height py-0">
     <v-row class="fill-height">
-      <v-col
-        md="6"
-        class="primary flex-column d-none d-md-flex overlay pa-sm-5 bg-primary"
-      >
+      <v-col md="6" class="primary flex-column d-none d-md-flex overlay pa-sm-5 bg-primary">
       </v-col>
       <v-col
         md="6"
@@ -12,21 +9,15 @@
       >
         <div class="px-3 px-sm-5 pb-3 pb-sm-5 w-100" style="max-width: 500px">
           <h1 class="text-uppercase py-8">My weather</h1>
-          <v-form fast-fail @submit.prevent="onSubmit">
-            <v-text-field
-              label="Email"
-              required
-              v-model="credentials.email"
-            ></v-text-field>
+          <v-form fast-fail @submit.prevent="onLogin">
+            <v-text-field label="Email" required v-model="credentials.email"></v-text-field>
             <v-text-field
               label="Password"
               required
               type="password"
               v-model="credentials.password"
             ></v-text-field>
-            <v-btn type="submit" block class="mt-2" color="primary"
-              >Submit</v-btn
-            >
+            <v-btn type="submit" block class="mt-2" color="primary">Submit</v-btn>
           </v-form>
         </div>
       </v-col>
@@ -35,26 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from "vue";
-import { login } from "@/services/api/auth";
-import router from "@/router";
-import { useUserStore } from "@/stores/useUserStore";
+import { useAuth } from '@/composables/useAuth'
 
-const credentials = reactive({ email: "", password: "" });
-const onSubmit = async () => {
-  try {
-    const response = await login({
-      email: credentials.email,
-      password: credentials.password,
-    });
-
-    if (response) {
-      const store = useUserStore();
-      store.isUserLoggedIn = true;
-      await router.push({ path: "/home" });
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
+const { onLogin, credentials } = useAuth()
 </script>
