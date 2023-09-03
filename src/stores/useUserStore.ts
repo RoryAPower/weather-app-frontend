@@ -2,8 +2,8 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import { User, UserResponse } from '@/interfaces/user'
 import { getUserDetails } from '@/services/api/user'
-import { City } from '@/interfaces/weather'
 import { AxiosResponse } from 'axios'
+import { City } from '@/interfaces/city'
 
 export const useUserStore = defineStore(
   'user',

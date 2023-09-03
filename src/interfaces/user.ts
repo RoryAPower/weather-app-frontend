@@ -1,4 +1,4 @@
-import { City } from '@/interfaces/weather'
+import { City } from '@/interfaces/city'
 
 export interface User {
   id: string

@@ -1,10 +1,10 @@
 import { ref } from 'vue'
 import { useUserStore } from '@/stores/useUserStore'
 import { useRouter } from 'vue-router'
-import { City, CitiesResponse, CityResponse } from '@/interfaces/weather'
 import { createCity } from '@/services/api/city'
 import { getCity } from '@/services/api/geoLocation'
 import { AxiosResponse } from 'axios'
+import { CitiesResponse, City, CityResponse } from '@/interfaces/city'
 
 export function useCity() {
   const city = ref('')
