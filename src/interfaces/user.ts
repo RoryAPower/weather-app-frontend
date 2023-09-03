@@ -6,3 +6,7 @@ export interface User {
   email: string
   cities: City[]
 }
+
+export interface UserResponse {
+  data: User
+}

@@ -24,3 +24,11 @@ export interface WeatherObject {
 export interface WeatherResponse {
   data: Weather
 }
+
+export interface CitiesResponse {
+  data: City[]
+}
+
+export interface CityResponse {
+  data: City
+}

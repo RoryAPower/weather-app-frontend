@@ -1,9 +1,10 @@
 import { ref } from 'vue'
 import { useUserStore } from '@/stores/useUserStore'
 import { useRouter } from 'vue-router'
-import { City } from '@/interfaces/weather'
+import { City, CitiesResponse, CityResponse } from '@/interfaces/weather'
 import { createCity } from '@/services/api/city'
 import { getCity } from '@/services/api/geoLocation'
+import { AxiosResponse } from 'axios'
 
 export function useCity() {
   const city = ref('')
@@ -18,10 +19,10 @@ export function useCity() {
     noResultsFound.value = false
 
     try {
-      const response = await getCity(city.value)
+      const response: AxiosResponse<CitiesResponse> = await getCity(city.value)
 
       if (response.status === 200) {
-        const cityData = response?.data?.data as City[]
+        const cityData = response?.data?.data
 
         if (cityData.length === 0) noResultsFound.value = true
         cityList.value = cityData
@@ -33,21 +34,22 @@ export function useCity() {
     }
   }
 
-  const onCityCreate = async (city: any) => {
+  const onCityCreate = async (city: City) => {
     overlay.value = true
 
     const cityParams: City = {
       name: city.name,
       country: city.country,
       lat: city.lat,
-      long: city.long
+      long: city.long,
+      state: city.state
     }
 
     try {
-      const response = await createCity(cityParams)
+      const response: AxiosResponse<CityResponse> = await createCity(cityParams)
 
       if (response?.status === 201) {
-        const cityData = response?.data.data as City
+        const cityData = response?.data.data
         await store.addUserDetailsToStore()
 
         await router.push({
