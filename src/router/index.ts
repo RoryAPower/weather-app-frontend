@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Base from '@/layouts/Base.vue'
+import BaseLayout from '@/layouts/BaseLayout.vue'
 import { useUserStore } from '@/stores/useUserStore'
 
 const routes = [
   {
     path: '/',
-    component: Base,
+    component: BaseLayout,
     children: [
       {
         path: 'home',

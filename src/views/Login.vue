@@ -1,7 +1,8 @@
 <template>
-  <v-container fluid class="fill-height py-0">
+  <v-container fluid class="fill-height pa-0">
     <v-row class="fill-height">
-      <v-col md="6" class="primary flex-column d-none d-md-flex overlay pa-sm-5 bg-primary">
+      <v-col md="6" class="primary flex-column d-none d-md-flex overlay pa-0 bg-primary">
+        <v-img aspect-ratio="16/9" cover :src="image"></v-img>
       </v-col>
       <v-col
         md="6"
@@ -18,6 +19,9 @@
               v-model="credentials.password"
             ></v-text-field>
             <v-btn type="submit" block class="mt-2" color="primary">Submit</v-btn>
+            <div v-if="loginError" class="text-uppercase text-red-darken-4 py-4">
+              {{ loginError }}
+            </div>
           </v-form>
         </div>
       </v-col>
@@ -27,6 +31,7 @@
 
 <script lang="ts" setup>
 import { useAuth } from '@/composables/useAuth'
+import image from '@/assets/weather.jpg'
 
-const { onLogin, credentials } = useAuth()
+const { onLogin, credentials, loginError } = useAuth()
 </script>

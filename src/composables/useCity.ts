@@ -70,6 +70,7 @@ export function useCity() {
     cityList,
     overlay,
     noResultsFound,
+    store,
     onCityCreate,
     onSubmit
   }

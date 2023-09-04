@@ -1,7 +1,12 @@
 <template>
-  <div class="h-screen w-100 flex-column d-flex justify-center align-center">
+  <div class="h-screen w-100 flex-column d-flex justify-start align-start py-10">
     <v-overlay v-model="overlay"></v-overlay>
-
+    <div class="py-4">
+      <v-btn variant="outlined" :to="{ name: 'Home' }">
+        <v-icon start icon="mdi-arrow-left"></v-icon>
+        Home
+      </v-btn>
+    </div>
     <v-card variant="outlined" v-if="weatherData" class="w-100">
       <v-card-title class="font-weight-bold text-uppercase text-h3 my-4">{{
         weatherData.city
@@ -9,13 +14,13 @@
       <v-card-text>
         <v-table>
           <thead>
-            <tr>
-              <th class="text-left"></th>
-              <th class="text-left">Temp</th>
-              <th class="text-left">Feels like</th>
-              <th class="text-left">Temp Min</th>
-              <th class="text-left">Temp Max</th>
-              <th class="text-left">Humidity</th>
+            <tr class="text-left">
+              <th></th>
+              <th>Temp</th>
+              <th>Feels like</th>
+              <th>Temp Min</th>
+              <th>Temp Max</th>
+              <th>Humidity</th>
             </tr>
           </thead>
           <tbody>
