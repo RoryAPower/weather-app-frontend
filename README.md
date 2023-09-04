@@ -37,9 +37,4 @@ yarn lint
 
 ### Remaining work
 1. Better styling
-2. Error handling from API
-3. Front end validation
-4. Route management in vue router
-5. Cache the app using local storage
-6. Change templating for weather once reliance on open weather is removed in API
-
+2. Front end validation
