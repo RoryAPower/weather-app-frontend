@@ -7,7 +7,7 @@
 yarn
 
 #env
-run `cp .env.example .env`
+run cp .env.example .env
 
 ```
 

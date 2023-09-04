@@ -2,13 +2,26 @@ import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/useUserStore'
 import { login, logout } from '@/services/api/auth'
 import { reactive, ref } from 'vue'
-import { AxiosError } from 'axios'
+import { useField, useForm } from 'vee-validate'
+import * as yup from 'yup'
 
 export function useAuth() {
   const store = useUserStore()
   const router = useRouter()
   const credentials = reactive({ email: '', password: '' })
   const loginError = ref('')
+
+  const validationSchema = yup.object().shape({
+    email: yup.string().email().required(),
+    password: yup.string().required()
+  })
+
+  const { handleSubmit, handleReset } = useForm({
+    validationSchema
+  })
+
+  const email = useField('email', validationSchema)
+  const password = useField('password', validationSchema)
 
   const onLogout = async () => {
     try {
@@ -24,12 +37,12 @@ export function useAuth() {
     }
   }
 
-  const onLogin = async () => {
+  const onLogin = handleSubmit(async (values) => {
     loginError.value = ''
 
     await login({
-      email: credentials.email,
-      password: credentials.password
+      email: values.email,
+      password: values.password
     })
       .then((response) => {
         if (response?.status === 200) {
@@ -47,12 +60,15 @@ export function useAuth() {
 
         console.error(error)
       })
-  }
+  })
 
   return {
     onLogout,
-    onLogin,
     credentials,
-    loginError
+    loginError,
+    email,
+    password,
+    handleReset,
+    onLogin
   }
 }

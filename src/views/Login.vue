@@ -11,15 +11,21 @@
         <div class="px-3 px-sm-5 pb-3 pb-sm-5 w-100" style="max-width: 500px">
           <h1 class="text-uppercase py-8">My weather</h1>
           <v-form fast-fail @submit.prevent="onLogin">
-            <v-text-field label="Email" required v-model="credentials.email"></v-text-field>
+            <v-text-field
+              label="Email"
+              required
+              v-model="email.value.value"
+              :error-messages="email.errorMessage.value as string"
+            ></v-text-field>
             <v-text-field
               label="Password"
               required
               type="password"
-              v-model="credentials.password"
+              v-model="password.value.value"
+              :error-messages="password.errorMessage.value as string"
             ></v-text-field>
             <v-btn type="submit" block class="mt-2" color="primary">Submit</v-btn>
-            <div v-if="loginError" class="text-uppercase text-red-darken-4 py-4">
+            <div v-if="loginError" class="text-red-darken-4 py-4">
               {{ loginError }}
             </div>
           </v-form>
@@ -33,5 +39,5 @@
 import { useAuth } from '@/composables/useAuth'
 import image from '@/assets/weather.jpg'
 
-const { onLogin, credentials, loginError } = useAuth()
+const { onLogin, loginError, email, password } = useAuth()
 </script>
