@@ -1,14 +1,13 @@
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/useUserStore'
 import { login, logout } from '@/services/api/auth'
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { useField, useForm } from 'vee-validate'
 import * as yup from 'yup'
 
 export function useAuth() {
   const store = useUserStore()
   const router = useRouter()
-  const credentials = reactive({ email: '', password: '' })
   const loginError = ref('')
 
   const validationSchema = yup.object().shape({
@@ -64,7 +63,6 @@ export function useAuth() {
 
   return {
     onLogout,
-    credentials,
     loginError,
     email,
     password,
