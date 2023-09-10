@@ -37,7 +37,9 @@ export function useWeather() {
   watch(
     () => route.params.id,
     async () => {
-      weatherData.value = await loadWeather(route.query.lat as string, route.query.long as string)
+      if (Object.keys(route.query).length) {
+        weatherData.value = await loadWeather(route.query.lat as string, route.query.long as string)
+      }
     }
   )
 
