@@ -27,7 +27,7 @@ export function useWeather() {
   }
 
   const getIcon = (icon: string) => {
-    return `http://openweathermap.org/img/wn/${icon}@2x.png`
+    return icon ? `http://openweathermap.org/img/wn/${icon}@2x.png` : ''
   }
 
   onMounted(async () => {
